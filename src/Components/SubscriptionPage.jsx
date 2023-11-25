@@ -1,6 +1,7 @@
 import { FaCreativeCommonsSampling } from "react-icons/fa";
 import { TbAdCircle, TbPremiumRights } from "react-icons/tb";
 import { FcApproval } from "react-icons/fc";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -10,6 +11,9 @@ const SubscriptionPage = () => {
 
   return (
     <div className="min-h-screen  flex py-10 justify-center items-center flex-col space-y-10 bg-zinc-100 ">
+      <Helmet>
+        <title>TrendLoom | Subscription</title>
+      </Helmet>
       <h4 className="text-5xl font-bold text-[#373737]">Subscription Plan</h4>
       <div className="w-full max-w-screen-lg mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className={cardStyle}>

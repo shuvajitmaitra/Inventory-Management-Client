@@ -1,3 +1,5 @@
+import { Helmet } from "react-helmet-async";
+import Banner from "./Banner";
 
 
 const Home = () => {
@@ -5,8 +7,10 @@ const Home = () => {
 
     return(
         <div>
-             <h3>Home Page</h3>
-             <h3>hello</h3>
+              <Helmet>
+        <title>TrendLoom | Home</title>
+      </Helmet>
+             <Banner></Banner>
         </div>
     )}
 export default Home;

@@ -7,6 +7,12 @@ import ErrorPage from "../Shared/ErrorPage";
 import CreateShop from "../Pages/CreateShop/CreateShop";
 import SubscriptionPage from "../Components/SubscriptionPage";
 import ManageProduct from "../Pages/Dashboard/ShopManager/ManageProduct";
+import PrivateRoutes from "./PrivateRoutes";
+import Dashboard from "../Layout/Dashboard";
+import ManagerRoute from "./ManagerRoute";
+import AllProduct from "../Pages/Dashboard/ShopManager/AllProduct";
+import AddProduct from "../Pages/Dashboard/ShopManager/AddProduct";
+import ProductUpdate from "../Pages/Dashboard/ShopManager/ProductUpdate";
 
 
 
@@ -30,18 +36,38 @@ const Routes = createBrowserRouter([
             },
             {
                 path: '/create-shop',
-                element: <CreateShop></CreateShop>
+                element: <PrivateRoutes><CreateShop/></PrivateRoutes>
             },
         ]
 
     },
+    
     {
-        path: 'subscription-plan',
-        element: <SubscriptionPage></SubscriptionPage>
-    },
-    {
-        path: 'manage-product',
-        element: <ManageProduct/>
+        path: '/dashboard',
+        element: <ManagerRoute><Dashboard/></ManagerRoute>,
+        children: [
+            {
+                path: "products",
+                element: <AllProduct/>
+            },
+            {
+                path: "add-product",
+                element: <AddProduct/>
+            },
+            {
+                path: 'subscription-plan',
+                element: <SubscriptionPage/>
+            },
+            {
+                path: 'manage-product',
+                element: <ManageProduct/>
+            },
+            {
+                path: 'product-update/:id',
+                element: <ProductUpdate/>
+            },
+
+        ]
     },
 ])
 export default Routes;

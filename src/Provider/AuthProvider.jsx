@@ -1,6 +1,5 @@
 import { PropTypes } from "prop-types";
 import { createContext, useEffect, useState } from "react";
-import auth from "../firebase/firebase.config";
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -10,6 +9,7 @@ import {
   signOut,
 } from "firebase/auth";
 import useAxiosPublic from "../Hook/useAxiosPublic";
+import auth from "../Firebase/firebase.config";
 
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
@@ -53,6 +53,7 @@ const AuthProvider = ({ children }) => {
     //       }
     //     });
     //   }
+    setLoading(false)
     });
     return () => {
       return unsubscribe;
