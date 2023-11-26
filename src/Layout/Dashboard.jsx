@@ -1,6 +1,8 @@
-import { FaBars, FaList, FaShoppingBag } from "react-icons/fa";
+import { FaBars, FaShoppingBag } from "react-icons/fa";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { MdOutlineHome, MdOutlineSettings, MdOutlineSubscriptions } from "react-icons/md";
+import { FaCalculator } from "react-icons/fa6";
+
 import useAuth from "../Hook/useAuth";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
@@ -23,8 +25,7 @@ const Dashboard = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         logOut()
-          .then((result) => {
-            console.log(result.user);
+          .then(() => {
             Swal.fire({
               title: "Log Out!",
               text: "successfully Logged Out!",
@@ -81,19 +82,19 @@ const Dashboard = () => {
       <li>
         <NavLink
           className={navStyle}
-          to="/"
+          to="/dashboard/sell-summary"
         >
-          <MdOutlineHome />
-          Home
+          <FaCalculator />
+          Sell Summary
         </NavLink>
       </li>
       <li>
         <NavLink
           className={navStyle}
-          to="/our-menu"
+          to="/"
         >
-          <FaList />
-          Menu
+          <MdOutlineHome />
+          Home
         </NavLink>
       </li>
       <li>
@@ -140,7 +141,7 @@ const Dashboard = () => {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className=" w-80 min-h-full px-10 bg-base-200  text-base-content">
+            <ul className=" lg:w-80 min-h-full px-10 bg-base-200  text-base-content">
               {dashLink}
             </ul>
           </div>

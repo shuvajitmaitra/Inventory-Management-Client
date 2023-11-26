@@ -7,13 +7,13 @@ const useManagerInfo = () => {
 const {user} = useAuth()
 const axiosPublic = useAxiosPublic()
 
-    const {data:manager} = useQuery({
+    const {data:manager, isLoading} = useQuery({
         queryKey:["user", user.email],
         queryFn: async()=>{
            const res = await axiosPublic.get(`/manager/${user.email}`)
            return res?.data
         }
        })
-    return [manager]
+    return [manager, isLoading]
 }
 export default useManagerInfo;

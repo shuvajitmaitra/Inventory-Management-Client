@@ -8,15 +8,21 @@ import useAuth from "../../../Hook/useAuth";
 import { Helmet } from "react-helmet-async";
 
 const ManageProduct = () => {
-  const [products, refetch] = useProducts();
+  const [products, refetch, isLoading] = useProducts();
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
   const [managerInfo] = useManagerInfo();
   const productLimit = parseInt(managerInfo?.productLimit);
   const newProductLimit = { newProductLimit: productLimit + 1 };
-  console.log(products);
-  console.log(productLimit);
 
+  if (isLoading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <progress className="progress w-56"></progress>
+      </div>
+    );
+  }
+  
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -63,7 +69,7 @@ const ManageProduct = () => {
               </button>
             </Link>
           </div>
-          <div className=" p-10 m-10 rounded-lg bg-[#7cb518]">
+          <div className=" p-10 m-10 rounded-lg bg-[#7bb5186b]">
             <div className="overflow-x-auto rounded-lg ">
               <table className="table">
                 {/* head */}

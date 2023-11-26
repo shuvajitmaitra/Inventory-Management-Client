@@ -16,13 +16,20 @@ const ProductUpdate = () => {
     const params = useParams()
 
     
-    const {data:singleProduct} = useQuery({
+    const {data:singleProduct, isLoading} = useQuery({
         queryKey:["singleProduct"],
         queryFn: async()=>{
            const res = await axiosPublic.get(`/singleProduct/${params.id}`)
            return res?.data
         }
     })
+    if (isLoading) {
+      return (
+        <div className="h-screen flex justify-center items-center">
+          <progress className="progress w-56"></progress>
+        </div>
+      );
+    }
 
     const onSubmit = async (data) => {
         const imageFile = { image: data.productImage[0] };
@@ -34,7 +41,7 @@ const ProductUpdate = () => {
           const profitMargin = parseFloat(data.profitMargin)
           const makingCost = parseFloat(data.makingCost)
          
-          const productPrice = makingCost + (makingCost*0.075) + (makingCost*(profitMargin/100))
+          const productPrice = Math.floor( makingCost + (makingCost*0.075) + (makingCost*(profitMargin/100)))
     
           const productData = {
              productName: data?.productName,
@@ -49,6 +56,9 @@ const ProductUpdate = () => {
           };
           
           const response = await axiosPublic.patch(`/productUpdate/${singleProduct._id}`, productData);
+          if(!response.data.modifiedCount){
+            return console.log(response.data);
+          }
       if (response.data.modifiedCount) {
         toast.success("Product Updated");
         navigate('/dashboard/products')
@@ -87,10 +97,11 @@ const ProductUpdate = () => {
                 <label className="label">
             <span className="label-text">Product Image</span>
           </label>
-            <input defaultValue={singleProduct?.productImage}
+            <input 
+            type="file"
               {...register("productImage", { required: true })}
               placeholder="Upload Product Image"
-              required type="file" className={`file-input file-input-bordered w-full`} />
+              required  className={`file-input file-input-bordered w-full`} />
              </div>
           </div>
           <div className="md:flex gap-6 mb-6">

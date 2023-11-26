@@ -16,15 +16,16 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    // formState: { errors },
+    formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
     createUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
-        updateProfile(auth.createUser, {
-          name: data.name,
+        updateProfile(auth.currentUser, {
+          displayName: data.name,
+          photoURL: data.photoURL,
         })
           .then(() => {
             logOut()
@@ -32,6 +33,7 @@ const Register = () => {
                 const userInfo = {
                   name: data.name,
                   email: data.email,
+                  photoURL: data.photoURL,
                 };
                 axiosPublic.post("/users", userInfo).then((res) => {
                   if (res.data.insertedId) {
@@ -50,12 +52,13 @@ const Register = () => {
       })
       .catch((error) => {
         console.log(error.message);
+        toast.error(error.message);
       });
   };
 
   return (
     <div className="min-h-screen flex py-20 justify-center items-center flex-col space-y-10 bg-zinc-100 ">
-        <Helmet>
+      <Helmet>
         <title>TrendLoom | Sing Up</title>
       </Helmet>
       <h4 className="text-5xl font-bold text-[#373737]">SignUp Now!</h4>
@@ -67,7 +70,7 @@ const Register = () => {
           />
         </div>
         <form
-           onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit)}
           className="card-body flex-1"
         >
           <div className="form-control">
@@ -82,9 +85,9 @@ const Register = () => {
               className="input input-bordered"
               required
             />
-            {/* {errors.name && (
+            {errors.name && (
               <span className="text-red-500">Name is required</span>
-            )} */}
+            )}
           </div>
           <div className="form-control">
             <label className="label">
@@ -98,9 +101,9 @@ const Register = () => {
               className="input input-bordered"
               required
             />
-            {/* {errors.email && (
+            {errors.email && (
               <span className="text-red-500">Email is required</span>
-            )} */}
+            )}
           </div>
           <div className="form-control">
             <label className="label">
@@ -109,6 +112,8 @@ const Register = () => {
             <input
               type="text"
               placeholder="image url"
+              name="photoURL"
+              {...register("photoURL", { required: true })}
               className="input input-bordered"
               required
             />
@@ -129,12 +134,12 @@ const Register = () => {
               className="input input-bordered"
               required
             />
-            {/* {errors.password?.type == "pattern" && (
+            {errors.password?.type == "pattern" && (
               <span className="text-red-500">Password Pattern not matched</span>
             )}
             {errors.password?.type == "required" && (
               <span className="text-red-500">Password is required</span>
-            )} */}
+            )}
           </div>
           <div className="form-control mt-6">
             <button

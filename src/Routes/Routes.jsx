@@ -9,75 +9,84 @@ import SubscriptionPage from "../Pages/Dashboard/ShopManager/SubscriptionPage";
 import ManageProduct from "../Pages/Dashboard/ShopManager/ManageProduct";
 import PrivateRoutes from "./PrivateRoutes";
 import Dashboard from "../Layout/Dashboard";
-import ManagerRoute from "./ManagerRoute";
 import AllProduct from "../Pages/Dashboard/ShopManager/AllProduct";
 import AddProduct from "../Pages/Dashboard/ShopManager/AddProduct";
 import ProductUpdate from "../Pages/Dashboard/ShopManager/ProductUpdate";
 import Payments from "../Pages/Dashboard/ShopManager/Payments";
 import CheckedProduct from "../Pages/Dashboard/ShopManager/CheckedProduct";
-
-
+import DashboardRoute from "./DashboardRoute";
+import SellSummary from "../Pages/Dashboard/ShopManager/SellSummary";
 
 const Routes = createBrowserRouter([
-    {
+  {
+    path: "/",
+    element: <MainLayout />,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
         path: "/",
-        element: <MainLayout/>,
-        errorElement: <ErrorPage></ErrorPage>,
-        children: [
-            {
-                path: '/',
-                element: <Home></Home>
-            },
-            {
-                path: '/login',
-                element: <Login></Login>
-            },
-            {
-                path: '/sign-up',
-                element: <Register></Register>
-            },
-            {
-                path: '/create-shop',
-                element: <PrivateRoutes><CreateShop/></PrivateRoutes>
-            },
-        ]
+        element: <Home></Home>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/sign-up",
+        element: <Register></Register>,
+      },
+      {
+        path: "/create-shop",
+        element: (
+          <PrivateRoutes>
+            <CreateShop />
+          </PrivateRoutes>
+        ),
+      },
+    ],
+  },
 
-    },
-    
-    {
-        path: '/dashboard',
-        element: <ManagerRoute><Dashboard/></ManagerRoute>,
-        children: [
-            {
-                path: "products",
-                element: <AllProduct/>
-            },
-            {
-                path: "add-product",
-                element: <AddProduct/>
-            },
-            {
-                path: 'subscription-plan',
-                element: <SubscriptionPage/>
-            },
-            {
-                path: 'manage-product',
-                element: <ManageProduct/>
-            },
-            {
-                path: 'product-update/:id',
-                element: <ProductUpdate/>
-            },
-            {
-                path: 'payment/:price',
-                element: <Payments/>
-            },
-            {
-                path: 'checked-product',
-                element: <CheckedProduct/>
-            },
-
-        ]
-    },
-])
+  {
+    path: "/dashboard",
+    element: (
+      <DashboardRoute>
+        <Dashboard />
+      </DashboardRoute>
+    ),
+    children: [
+      {
+        path: "products",
+        element: <AllProduct />,
+      },
+      {
+        path: "add-product",
+        element: <AddProduct />,
+      },
+      {
+        path: "subscription-plan",
+        element: <SubscriptionPage />,
+      },
+      {
+        path: "manage-product",
+        element: <ManageProduct />,
+      },
+      {
+        path: "product-update/:id",
+        element: <ProductUpdate />,
+      },
+      {
+        path: "payment/:price",
+        element: <Payments />,
+      },
+      {
+        path: "checked-product",
+        element: <CheckedProduct />,
+      },
+      {
+        path: "sell-summary",
+        element: <SellSummary />,
+      },
+    ],
+  },
+]);
 export default Routes;

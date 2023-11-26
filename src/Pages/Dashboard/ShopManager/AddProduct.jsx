@@ -23,7 +23,6 @@ const AddProduct = () => {
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
       headers: { "content-type": "multipart/form-data" },
     });
-    console.log(res.data.data.display_url);
 
     if (res?.data?.success) {
       const profitMargin = parseFloat(data.profitMargin)
@@ -50,7 +49,6 @@ const AddProduct = () => {
       };
       
       const productLimit = parseInt(managerInfo.productLimit)
-      console.log(productLimit);
       if(productLimit>0){
          const response = await axiosPublic.post("/products", productData);
       if (response.data.insertedId) {

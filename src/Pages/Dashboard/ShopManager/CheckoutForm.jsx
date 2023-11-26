@@ -16,9 +16,7 @@ const CheckoutForm = () => {
 
   const [clientSecret, setClientSecret] = useState("");
   const params = useParams();
-  console.log(params.price);
   const price = parseInt(params.price);
-  console.log(price);
   const totalPrice = price;
 
   useEffect(() => {
@@ -62,7 +60,7 @@ const CheckoutForm = () => {
           card: card,
           billing_details: {
             email: user.email || "anonymous",
-            name: user.displayName || "anonymous", //useAuth থেকে user information নিয়ে দেখাতে হবে
+            name: user.displayName || "anonymous", 
           },
         },
       });
@@ -96,7 +94,6 @@ const CheckoutForm = () => {
         };
 
         const res = await axiosPublic.put("/payment", payment);
-        console.log(res.data);
         if (res.data.insertedId) {
           axiosPublic
             .patch(`/newProductLimit/${user.email}`, newProductLimit)

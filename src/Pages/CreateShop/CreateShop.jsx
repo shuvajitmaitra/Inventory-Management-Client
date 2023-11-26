@@ -8,6 +8,7 @@ const CreateShop = () => {
   const axiosPublic = useAxiosPublic()
   const navigate = useNavigate()
   const {user} = useAuth()
+  console.log(user);
   const inputStyle =
     "focus:border-b-2 focus:border-[#7cb518] focus:outline-none text-[#7cb518] border-b-2 border-zinc-300 pb-3 w-full font-medium";
 
@@ -89,7 +90,7 @@ const CreateShop = () => {
               required
             />
             <input
-              type="password"
+              type="text"
               name="shopLocation"
               placeholder="Shop Location"
               className={inputStyle}

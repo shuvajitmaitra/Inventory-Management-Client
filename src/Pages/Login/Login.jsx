@@ -24,7 +24,6 @@ const Login = () => {
       })
       .catch((error) => {
         toast.error(error.message.firebase, "Email/Password invalid");
-        console.log(error.message);
       });
   };
   return (

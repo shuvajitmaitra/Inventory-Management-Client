@@ -28,10 +28,27 @@ const CheckedProduct = () => {
     doc.text(`Product Discount: ${product.productDiscount}%`, 20, 200);
     doc.text(`-------------------------------------------`, 20, 220);
     doc.text(`Product Price: ${product.productPrice}`, 20, 240);
-    doc.save(`${product.productName}.pdf`);
+    // doc.save(`${product.productName}.pdf`);
   }
+
   const handleSoldProduct = (product) => {
-    const soldProduct = { ...product, soldTime };
+ const soldProduct = {
+productId:product.productId,
+shopName:product.shopName,
+shopId:product.shopId,
+email:product.email,
+productAddedDate:product.productAddedDate,
+productName:product.productName,
+productImage:product.productImage,
+productQuantity:product.productQuantity,
+productLocation:product.productLocation,
+profitMargin:product.profitMargin,
+makingCost:product.makingCost,
+productPrice:product.productPrice,
+productDiscount:product.productDiscount,
+productDescription:product.productDescription,
+saleCount:product.saleCount,
+    soldTime,  };
     axiosPublic.post("/sold-product", soldProduct).then((res) => {
       if (res.data.insertedId) {
         axiosPublic.get(`/singleProduct/${product.productId}`).then((res) => {
@@ -65,7 +82,7 @@ const CheckedProduct = () => {
         Check Out Page
       </h2>
 
-      <div className=" p-10 m-10 rounded-lg bg-[#7cb518] border-2 border-black">
+      <div className=" p-10 m-10 rounded-lg bg-[#7bb51865] shadow-xl">
         <div className=" rounded-lg">
           <table className="table">
             {/* head */}

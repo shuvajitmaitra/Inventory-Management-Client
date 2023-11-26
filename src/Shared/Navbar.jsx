@@ -2,6 +2,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { FaTree } from "react-icons/fa";
 import useAuth from "../Hook/useAuth";
 import useManager from "../Hook/useManager";
+import useAdmin from "../Hook/useAdmin";
 import Swal from "sweetalert2";
 
 
@@ -11,6 +12,7 @@ const Navbar = () => {
  const navActive = "border-b-2 border-red-500 pb-1"
  const navNormal = "text-medium "
  const [isManager] = useManager()
+ const [isAdmin] = useAdmin()
 
 const handleLogOut = () => {
   Swal.fire({
@@ -49,7 +51,7 @@ const navLink = <>
 </li>
 
 {
-  isManager && <li>
+  isManager || isAdmin && <li>
   <NavLink className={location.pathname === "/dashboard"? navActive : navNormal} to={'/dashboard/products'}>Dashboard</NavLink>
 </li>
 }

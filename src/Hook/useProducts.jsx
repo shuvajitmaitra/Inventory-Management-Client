@@ -8,7 +8,7 @@ const useProducts = () => {
 
     const axiosPublic = useAxiosPublic()
 const {user} = useAuth()
-const {data: products=[], refetch} =useQuery({
+const {data: products=[], refetch, isLoading} =useQuery({
     queryKey: ['cart', user?.email],
     queryFn : async()=>{
         const res = await axiosPublic.get(`/products/${user?.email}`)
@@ -16,7 +16,7 @@ const {data: products=[], refetch} =useQuery({
     }
 })
 
-    return [products, refetch]
+    return [products, refetch, isLoading]
 
 }
 export default useProducts;

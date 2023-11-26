@@ -5,15 +5,32 @@ import { Helmet } from "react-helmet-async";
 import { IoBagCheckOutline } from "react-icons/io5";
 import useAxiosPublic from "../../../Hook/useAxiosPublic";
 import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 
 const AllProduct = () => {
-  const [products] = useProducts();
+  const [products, isLoading] = useProducts();
+  const [allProducts, setAllProducts] = useState(products)
   const axiosPublic = useAxiosPublic()
   const navigate = useNavigate()
 
+  useEffect(() => {
+  setAllProducts(products)
+}, [products])
+
+if (isLoading) {
+  return (
+    <div className="h-screen flex justify-center items-center">
+      <progress className="progress w-56"></progress>
+    </div>
+  );
+}
+
   const handleCheckOut = (product)=>{
-    console.log(product);
+    if(product.productQuantity <=0){
+      navigate('/dashboard/manage-product')
+      return toast("Insufficient Product Quantity",{icon: "🥲"})
+    }
     const checkedProducts = {
     
     productId: product._id,
@@ -41,6 +58,15 @@ const AllProduct = () => {
     })
   }
 
+  const handleSearch = (e)=>{
+    e.preventDefault()
+    const id = e.target.search.value
+    const filter = products?.filter(item=>item._id === id)
+    setAllProducts(filter)
+ 
+
+  }
+
   return (
     <div className="min-h-screen bg-zinc-100 lg:px-10">
         <Helmet>
@@ -50,16 +76,18 @@ const AllProduct = () => {
         <div className="space-y-7 py-10">
             <h3 className="text-5xl text-center font-medium">All Product are here</h3>
           <div>
+           <form onSubmit={handleSearch}>
            <span className="relative w-fit">
-           <input type="text" className="w-1/2 mx-auto py-3 rounded-full relative" />
-            <FaSearch className="absolute top-1 right-4" />
+           <input type="text" name="search" className="w-1/2 mx-auto py-3 rounded-full " />
+            <button ><FaSearch className="absolute top-1 right-4" /></button>
            </span>
+           </form>
           </div>
-          <div className=" p-10 m-10 lg:m-0 rounded-lg bg-[#7cb518]">
+          <div className=" p-10 m-10 lg:m-0 rounded-lg bg-[#7bb51862]">
             <div className="overflow-x-auto rounded-lg ">
               <table className="table">
                 {/* head */}
-                <thead className="bg-[#b2ee4a]">
+                <thead className="bg-[#b1f044]">
                   <tr>
                     <th> #</th>
                     <th>Product Image</th>
@@ -73,7 +101,7 @@ const AllProduct = () => {
                 </thead>
                 <tbody className="text-center">
                   {/* row 1 */}
-                  {products.map((product, index) => (
+                  {allProducts.map((product, index) => (
                     <tr key={product._id}>
                       <th>{index + 1}</th>
                       <td>

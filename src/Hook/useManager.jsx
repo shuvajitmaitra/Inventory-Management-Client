@@ -16,6 +16,6 @@ const {data:isManager, isLoading} = useQuery({
     }
 })   
 
-return [isManager, isLoading, ]
+return [isManager, isLoading ]
 }
 export default useManager;

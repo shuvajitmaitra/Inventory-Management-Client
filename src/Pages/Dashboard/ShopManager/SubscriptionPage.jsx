@@ -4,23 +4,18 @@ import { FcApproval } from "react-icons/fc";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import useManagerInfo from "../../../Hook/useManagerInfo";
-// import { useQuery } from "@tanstack/react-query";
-// import useAxiosPublic from "../../../Hook/useAxiosPublic";
-// import useAuth from "../../../Hook/useAuth";
+
 
 const SubscriptionPage = () => {
-  const [manager] = useManagerInfo()
-  // const axiosPublic = useAxiosPublic();
-  // const { user } = useAuth();
-  // const { data: payment } = useQuery({
-  //   queryKey: ["subscriptionStatus"],
-  //   queryFn: async () => {
-  //     const res = await axiosPublic.get(`/paymentStatus/${user.email}`);
-  //     return res.data;
-  //   },
-  // });
-
-  // console.log(payment);
+  const [manager, isLoading] = useManagerInfo()
+  
+  if (isLoading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <progress className="progress w-56"></progress>
+      </div>
+    );
+  }
   const cardStyle =
     "min-h-1/2 max-w-lg flex flex-col  shadow-2xl  shadow-zinc-400 rounded-lg bg-white space-y-4 p-10";
 
@@ -61,7 +56,7 @@ const SubscriptionPage = () => {
                 manager?.subscriptionType === "Advance" ||
                 manager?.subscriptionType === "Premium"
               }
-              className="btn bg-[#7cb518]"
+              className="btn bg-[#7cb518"
             >
               Purchase
             </button>
