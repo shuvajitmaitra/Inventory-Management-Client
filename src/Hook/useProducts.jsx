@@ -11,7 +11,7 @@ const {user} = useAuth()
 const {data: products=[], refetch} =useQuery({
     queryKey: ['cart', user?.email],
     queryFn : async()=>{
-        const res = await axiosPublic.get(`/products?email=${user?.email}`)
+        const res = await axiosPublic.get(`/products/${user?.email}`)
         return res.data
     }
 })

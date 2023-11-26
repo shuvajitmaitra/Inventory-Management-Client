@@ -4,6 +4,7 @@ import { MdOutlineHome, MdOutlineSettings, MdOutlineSubscriptions } from "react-
 import useAuth from "../Hook/useAuth";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import { IoBagCheckOutline } from "react-icons/io5";
 
 const Dashboard = () => {
   const navStyle =
@@ -47,7 +48,7 @@ const Dashboard = () => {
           to="/dashboard/products"
         >
           <MdOutlineHome />
-          Products
+          Sales Collections
         </NavLink>
       </li>
       <li>
@@ -57,6 +58,15 @@ const Dashboard = () => {
         >
           <MdOutlineSettings />
           Manage Products
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className={navStyle}
+          to="/dashboard/checked-product"
+        >
+           <IoBagCheckOutline />
+          Check Out
         </NavLink>
       </li>
       <li>
@@ -98,7 +108,7 @@ const Dashboard = () => {
     </>
   );
   return (
-    <div className="min-h-screen max-w-screen-2xl mx-auto flex text-center ">
+    <div className="h-screen max-w-screen-2xl mx-auto flex text-center ">
         <Helmet>
         <title>TrendLoom | Dashboard</title>
       </Helmet>
@@ -107,22 +117,22 @@ const Dashboard = () => {
         <ul>{dashLink}</ul>
       </div>
 
-      <div className="lg:hidden">
+      <div className="lg:hidden z-20">
         <div className="drawer ">
           <input
             id="my-drawer"
             type="checkbox"
             className="drawer-toggle "
           />
-          <div className="drawer-content p-8 flex items-center gap-6">
+          <div className="absolute p-8  flex items-center gap-6 ">
             {/* Page content here */}
             <label
               htmlFor="my-drawer"
               className="drawer-button"
             >
-              <FaBars className="text-xl" />
+              <FaBars className="text-xl " />
             </label>
-            <span className="text-xl">TrendLoom </span>
+            {/* <span className="text-xl">TrendLoom </span> */}
           </div>
           <div className="drawer-side ">
             <label
@@ -130,13 +140,13 @@ const Dashboard = () => {
               aria-label="close sidebar"
               className="drawer-overlay"
             ></label>
-            <ul className=" w-80 min-h-full px-10 bg-base-200 text-base-content">
+            <ul className=" w-80 min-h-full px-10 bg-base-200  text-base-content">
               {dashLink}
             </ul>
           </div>
         </div>
       </div>
-      <div className="flex-1">
+      <div className="lg:flex-1 min-h-screen">
         <Outlet></Outlet>
       </div>
     </div>

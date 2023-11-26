@@ -43,16 +43,18 @@ const AddProduct = () => {
          productLocation: data?.productLocation,
          profitMargin: profitMargin,
          makingCost: makingCost,
-         productPrice: productPrice,
+         productPrice: productPrice.toFixed(2),
          productDiscount: data.productDiscount,
          productDescription: data.productDescription,
          saleCount: 0,
       };
       
       const productLimit = parseInt(managerInfo.productLimit)
+      console.log(productLimit);
       if(productLimit>0){
          const response = await axiosPublic.post("/products", productData);
       if (response.data.insertedId) {
+        refetch()
          const newProductLimit = {newProductLimit: productLimit -1}
          axiosPublic.patch(`/newProductLimit/${user.email}`, newProductLimit )
          .then((res) => {

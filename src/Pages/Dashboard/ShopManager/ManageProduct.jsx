@@ -15,6 +15,7 @@ const ManageProduct = () => {
   const productLimit = parseInt(managerInfo?.productLimit);
   const newProductLimit = { newProductLimit: productLimit + 1 };
   console.log(products);
+  console.log(productLimit);
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -55,8 +56,8 @@ const ManageProduct = () => {
           <div className="flex justify-between items-center p-10 pb-0">
             <h3 className="text-xl font-medium">
               Total Products: {products.length}
-            </h3>{" "}
-            <Link to="/dashboard/add-product">
+            </h3>
+            <Link to={productLimit === 0 ? "/dashboard/subscription-plan" :"/dashboard/add-product" }>
               <button className="btn bg-[#7cb518] btn-sm text-white  rounded mb-3">
                 Add Products
               </button>
@@ -121,7 +122,7 @@ const ManageProduct = () => {
         </div>
       ) : (
         <span className="flex h-screen justify-center items-center flex-col">
-          <Link to="/dashboard/add-product">
+          <Link to={productLimit === 0 ? "/dashboard/subscription-plan" :"/dashboard/add-product" }>
             <button className="btn bg-[#7cb518]  rounded btn-lg mb-3">
               Add Products
             </button>

@@ -2,9 +2,11 @@ import useAxiosPublic from "../../Hook/useAxiosPublic";
 import useAuth from "../../Hook/useAuth";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 
 const CreateShop = () => {
   const axiosPublic = useAxiosPublic()
+  const navigate = useNavigate()
   const {user} = useAuth()
   const inputStyle =
     "focus:border-b-2 focus:border-[#7cb518] focus:outline-none text-[#7cb518] border-b-2 border-zinc-300 pb-3 w-full font-medium";
@@ -37,11 +39,13 @@ const CreateShop = () => {
           shopName,
           shopLogo,
           shopId: res.data.insertedId,
-          role: "manager"
+          role: "manager",
+          
         }
         axiosPublic.patch(`/users/manager/${user.email}`, shopManager)
         .then((res) => {
           if(res?.data?.modifiedCount){
+            navigate("/dashboard/products")
            toast.success('user created')
           }
         });

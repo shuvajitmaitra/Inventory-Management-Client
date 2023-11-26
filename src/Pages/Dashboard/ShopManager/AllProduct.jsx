@@ -1,17 +1,50 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useProducts from "../../../Hook/useProducts";
-import ProductCard from "./ProductCard";
 import { FaSearch } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
+import { IoBagCheckOutline } from "react-icons/io5";
+import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import toast from "react-hot-toast";
+
 
 const AllProduct = () => {
   const [products] = useProducts();
-  console.log(products);
+  const axiosPublic = useAxiosPublic()
+  const navigate = useNavigate()
+
+  const handleCheckOut = (product)=>{
+    console.log(product);
+    const checkedProducts = {
+    
+    productId: product._id,
+    shopName:product.shopName,
+    shopId:product.shopId, 
+    email:product.email,
+    productAddedDate:product.productAddedDate,
+    productName:product.productName,
+    productImage:product.productImage,
+    productQuantity:product.productQuantity,
+    productLocation:product.productLocation,
+    profitMargin:product.profitMargin,
+    makingCost:product.makingCost,
+    productPrice:product.productPrice,
+    productDiscount:product.productDiscount,
+    productDescription:product.productDescription,
+    saleCount:product.saleCount
+    }
+    axiosPublic.post("/product-check-out",checkedProducts )
+    .then(res=>{
+      if(res.data.insertedId){
+        toast.success("Checked Out")
+        navigate("/dashboard/checked-product")
+      }
+    })
+  }
 
   return (
-    <div className="bg-zinc-100 min-h-screen lg:px-10">
+    <div className="min-h-screen bg-zinc-100 lg:px-10">
         <Helmet>
-        <title>TrendLoom | Products</title>
+        <title>TrendLoom | Sales Collection</title>
       </Helmet>
       {products.length ? (
         <div className="space-y-7 py-10">
@@ -22,10 +55,58 @@ const AllProduct = () => {
             <FaSearch className="absolute top-1 right-4" />
            </span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {
-                products.map(product=><ProductCard product={product} key={product._id}></ProductCard>)
-            }
+          <div className=" p-10 m-10 lg:m-0 rounded-lg bg-[#7cb518]">
+            <div className="overflow-x-auto rounded-lg ">
+              <table className="table">
+                {/* head */}
+                <thead className="bg-[#b2ee4a]">
+                  <tr>
+                    <th> #</th>
+                    <th>Product Image</th>
+                    <th>Product Name</th>
+                    <th>Product ID</th>
+                    <th>Product Quantity</th>
+                    <th>Product Discount</th>
+                    <th>Product Price</th>
+                    <th>Check Out</th>
+                  </tr>
+                </thead>
+                <tbody className="text-center">
+                  {/* row 1 */}
+                  {products.map((product, index) => (
+                    <tr key={product._id}>
+                      <th>{index + 1}</th>
+                      <td>
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12">
+                            <img
+                              src={product.productImage}
+                              alt="Avatar Tailwind CSS Component"
+                            />
+                          </div>
+                        </div>
+                      </td>
+                      <td className="font-medium">{product.productName}</td>
+                      <td className="text-zinc-600">
+                        {product._id}
+                      </td>
+                      <td className="text-zinc-600">
+                        {product.productQuantity}
+                      </td>
+                      <td className="text-zinc-600">
+                        {product.productDiscount} %
+                      </td>
+                      <td className="text-zinc-600">${product.productPrice}</td>
+                      <th>
+                      <button onClick={()=>handleCheckOut(product)} className="text-zinc-600 font-medium p-3 text-2xl rounded bg-[#b2ee4a] shadow-md shadow-green-400">
+                            <IoBagCheckOutline />
+                      </button>
+                      </th>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+        </div>
           </div>
         </div>
       ) : (
