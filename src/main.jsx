@@ -6,6 +6,8 @@ import AuthProvider from "./Provider/AuthProvider.jsx";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from 'react-helmet-async';
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
 
 
 

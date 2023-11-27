@@ -16,6 +16,9 @@ import Payments from "../Pages/Dashboard/ShopManager/Payments";
 import CheckedProduct from "../Pages/Dashboard/ShopManager/CheckedProduct";
 import DashboardRoute from "./DashboardRoute";
 import SellSummary from "../Pages/Dashboard/ShopManager/SellSummary";
+import Shops from "../Pages/Dashboard/SystemAdmin/Shops";
+import AdminRoute from "./AdminRoute";
+import AdminSellSummary from "../Pages/Dashboard/SystemAdmin/AdminSellSummary";
 
 const Routes = createBrowserRouter([
   {
@@ -85,6 +88,14 @@ const Routes = createBrowserRouter([
       {
         path: "sell-summary",
         element: <SellSummary />,
+      },
+      {
+        path: "all-shop",
+        element: <AdminRoute><Shops /></AdminRoute>,
+      },
+      {
+        path: "admin-sell-summary",
+        element: <AdminRoute><AdminSellSummary /></AdminRoute>,
       },
     ],
   },

@@ -86,15 +86,14 @@ saleCount:product.saleCount,
         <div className=" rounded-lg">
           <table className="table">
             {/* head */}
-            <thead className="bg-[#b2ee4a]">
+            <thead className="bg-[#b2ee4a] text-center">
               <tr>
                 <th> #</th>
                 <th>Product Image</th>
                 <th>Product Name</th>
-                <th>Product Quantity</th>
-                <th>Sale Count</th>
-                <th>Product Update</th>
-                <th>Product Delete</th>
+                <th>Product Location</th>
+                <th> Product Description</th>
+                <th>Get Paid</th>
               </tr>
             </thead>
             <tbody className="text-center">
@@ -113,8 +112,8 @@ saleCount:product.saleCount,
                     </div>
                   </td>
                   <td className="font-medium">{product.productName}</td>
-                  <td className="text-zinc-600">{product.productQuantity}</td>
-                  <td className="text-zinc-600">{product.saleCount}</td>
+                  <td className="text-zinc-600">{product.productLocation}</td>
+                  <td className="text-zinc-600">{product.productDescription}</td>
                   <td>
                     <button
                       onClick={() => handleSoldProduct(product)}

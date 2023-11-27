@@ -22,7 +22,7 @@ const CreateShop = () => {
     const shopOwnerEmail = user.email;
 
       const shopData = {
-        shopName,
+      shopName,
       shopLogo,
       shopInfo,
       shopLocation,
@@ -39,6 +39,8 @@ const CreateShop = () => {
         const shopManager = {
           shopName,
           shopLogo,
+          shopInfo,
+          shopLocation,
           shopId: res.data.insertedId,
           role: "manager",
           

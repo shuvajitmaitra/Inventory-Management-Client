@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 
 const AllProduct = () => {
-  const [products, isLoading] = useProducts();
+  const [products] = useProducts();
   const [allProducts, setAllProducts] = useState(products)
   const axiosPublic = useAxiosPublic()
   const navigate = useNavigate()
@@ -18,13 +18,7 @@ const AllProduct = () => {
   setAllProducts(products)
 }, [products])
 
-if (isLoading) {
-  return (
-    <div className="h-screen flex justify-center items-center">
-      <progress className="progress w-56"></progress>
-    </div>
-  );
-}
+
 
   const handleCheckOut = (product)=>{
     if(product.productQuantity <=0){
@@ -47,13 +41,14 @@ if (isLoading) {
     productPrice:product.productPrice,
     productDiscount:product.productDiscount,
     productDescription:product.productDescription,
-    saleCount:product.saleCount
+    saleCount:product.saleCount,
+    payStatus: "unpaid"
     }
     axiosPublic.post("/product-check-out",checkedProducts )
     .then(res=>{
       if(res.data.insertedId){
         toast.success("Checked Out")
-        navigate("/dashboard/checked-product")
+        // navigate("/dashboard/checked-product")
       }
     })
   }

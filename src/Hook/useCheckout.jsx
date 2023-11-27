@@ -13,6 +13,7 @@ const {data:checkedProducts, refetch,isLoading} = useQuery({
         return res.data
     }
 })
+console.log(checkedProducts);
     return [checkedProducts, refetch, isLoading]
 }
 export default useCheckout;

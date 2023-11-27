@@ -1,18 +1,22 @@
 import { FaBars, FaShoppingBag } from "react-icons/fa";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { MdOutlineHome, MdOutlineSettings, MdOutlineSubscriptions } from "react-icons/md";
+import { IoStorefrontOutline } from "react-icons/io5";
+
 import { FaCalculator } from "react-icons/fa6";
 
 import useAuth from "../Hook/useAuth";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { IoBagCheckOutline } from "react-icons/io5";
+import useManager from "../Hook/useManager";
 
 const Dashboard = () => {
   const navStyle =
     "bg-[#7cb518] flex justify-center items-center gap-1 font-medium text-white my-4 py-1 rounded w-full";
   const { logOut } = useAuth();
   const navigate = useNavigate();
+  const [isManager, isLoading] = useManager()
   const handleLogOut = () => {
     Swal.fire({
       title: "Logout?",
@@ -41,9 +45,19 @@ const Dashboard = () => {
       }
     });
   };
+
+  if (isLoading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <progress className="progress w-56"></progress>
+      </div>
+    );
+  }
   const dashLink = (
     <>
-      <li>
+     {
+      isManager && <>
+       <li>
         <NavLink
           className={navStyle}
           to="/dashboard/products"
@@ -88,6 +102,31 @@ const Dashboard = () => {
           Sell Summary
         </NavLink>
       </li>
+      </>
+     }
+
+     {
+      !isManager && <>
+       <li>
+        <NavLink
+          className={navStyle}
+          to="/dashboard/all-shop"
+        >
+          <IoStorefrontOutline />
+          All Shops
+        </NavLink>
+      </li>
+       <li>
+        <NavLink
+          className={navStyle}
+          to="/dashboard/admin-sell-summary"
+        >
+          <FaCalculator />
+          Sell Summary
+        </NavLink>
+      </li>
+      </> 
+     }
       <li>
         <NavLink
           className={navStyle}
@@ -147,7 +186,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="lg:flex-1 min-h-screen">
+      <div className="flex-1 min-h-screen">
         <Outlet></Outlet>
       </div>
     </div>

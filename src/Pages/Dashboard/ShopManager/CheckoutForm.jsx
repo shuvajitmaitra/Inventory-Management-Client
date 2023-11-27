@@ -1,7 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../../Hook/useAxiosPublic";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../../../Hook/useAuth";
 
@@ -10,6 +10,7 @@ const CheckoutForm = () => {
   const [error, setError] = useState("");
   const { user } = useAuth();
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate()
 
   const stripe = useStripe();
   const elements = useElements();
@@ -99,7 +100,15 @@ const CheckoutForm = () => {
             .patch(`/newProductLimit/${user.email}`, newProductLimit)
             .then((res) => {
               if (res?.data?.modifiedCount) {
-                toast.success("Payment Success!");
+              axiosPublic.patch(`/system-admin-income?price=${totalPrice}`)
+              .then(response=>{
+
+                console.log(response.data);
+                if(response.data.modifiedCount){
+                  navigate("/dashboard/products")
+                  toast.success("Payment Success!");
+                }
+              })
               }
             });
         }

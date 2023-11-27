@@ -33,7 +33,7 @@ const SellSummary = () => {
   
 
   const Style =
-    "w-full  rounded-lg py-5 bg-gradient-to-r  from-[#a3d02a]  to-[#e5f26a]  ";
+    "w-full  rounded-lg py-5 bg-gradient-to-r  from-[#a3d02a]  to-[#e5f26a]  font-bold text-xl  ";
   return (
     <div className="w-full">
       <div>
@@ -43,9 +43,9 @@ const SellSummary = () => {
         </h2>
       </div>
       <div className="w-screen flex flex-col md:flex-row lg:w-3/4 mx-auto justify-between items-center gap-3 p-4 my-10 lg:my-0">
-        <h3 className={Style}>Total sale: {data?.totalProduct}</h3>
-        <h3 className={Style}>Total Invest: ${data?.totalInvest}</h3>
-        <h3 className={Style}>Total Profit: ${data?.totalProfit}</h3>
+        <h3 className={Style}>Total sale: <span className="text-zinc-600 font-medium">{data?.totalProduct}</span></h3>
+        <h3 className={Style}>Total Invest: <span className="text-zinc-600 font-medium">${data?.totalInvest}</span></h3>
+        <h3 className={Style}>Total Profit: <span className="text-zinc-600 font-medium">${data?.totalProfit}</span></h3>
       </div>
       <div className=" p-10 m-10 pb-0 rounded-lg bg-[#7bb51859]">
         <div className=" rounded-lg ">

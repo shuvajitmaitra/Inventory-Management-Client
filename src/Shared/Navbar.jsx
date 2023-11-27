@@ -1,9 +1,9 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { FaTree } from "react-icons/fa";
 import useAuth from "../Hook/useAuth";
 import useManager from "../Hook/useManager";
 import useAdmin from "../Hook/useAdmin";
 import Swal from "sweetalert2";
+import { IoStorefrontOutline } from "react-icons/io5";
 
 
 const Navbar = () => {
@@ -12,6 +12,7 @@ const Navbar = () => {
  const navActive = "border-b-2 border-red-500 pb-1"
  const navNormal = "text-medium "
  const [isManager] = useManager()
+ console.log(isManager);
  const [isAdmin] = useAdmin()
 
 const handleLogOut = () => {
@@ -51,10 +52,20 @@ const navLink = <>
 </li>
 
 {
-  isManager || isAdmin && <li>
+  isManager && <li>
   <NavLink className={location.pathname === "/dashboard"? navActive : navNormal} to={'/dashboard/products'}>Dashboard</NavLink>
 </li>
 }
+{
+  isAdmin && <li>
+  <NavLink className={location.pathname === "/dashboard"? navActive : navNormal} to={'/dashboard/all-shop'}>Dashboard</NavLink>
+</li>
+}
+{/* {
+  isManager || isAdmin && <li>
+  <NavLink className={location.pathname === "/dashboard"? navActive : navNormal} to={`${isManager ?'/dashboard/products' : '/dashboard/all-shop'}`}>Dashboard</NavLink>
+</li>
+} */}
 
 {
   user ?
@@ -86,7 +97,7 @@ const navLink = <>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-6 h-6 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
               </label>
             </div> 
-            <div className="flex-1 px-2 mx-2 text-[#7cb518] text-3xl"><FaTree/> TrendLoom</div>
+            <div className="flex-1 px-2 mx-2 text-[#7cb518] text-3xl"><IoStorefrontOutline/> TrendLoom</div>
             <div className="flex-none hidden lg:block">
               <ul className=" menu-horizontal gap-4 font-medium text-[#7cb518]">
             {navLink}
