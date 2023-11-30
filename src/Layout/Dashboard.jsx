@@ -1,5 +1,5 @@
-import { FaBars, FaShoppingBag } from "react-icons/fa";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { FaBars, FaKey, FaShoppingBag } from "react-icons/fa";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { MdOutlineHome, MdOutlineSettings, MdOutlineSubscriptions } from "react-icons/md";
 import { IoStorefrontOutline } from "react-icons/io5";
 
@@ -10,10 +10,12 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import { IoBagCheckOutline } from "react-icons/io5";
 import useManager from "../Hook/useManager";
+import Footer from "../Shared/Footer";
 
 const Dashboard = () => {
-  const navStyle =
-    "bg-[#7cb518] flex justify-center items-center gap-1 font-medium text-white my-4 py-1 rounded w-full";
+  const location = useLocation()
+  const navStyle ="bg-[#7cb518] flex justify-center items-center gap-1 font-medium text-white my-4 py-1 rounded w-full";
+  const navActive = "text-[#7cb518] border-2 border-[#7cb518] flex justify-center items-center gap-1 font-medium  my-4 py-1 rounded w-full"
   const { logOut } = useAuth();
   const navigate = useNavigate();
   const [isManager, isLoading] = useManager()
@@ -59,7 +61,7 @@ const Dashboard = () => {
       isManager && <>
        <li>
         <NavLink
-          className={navStyle}
+          className={location.pathname === "/dashboard/products" ? navActive  : navStyle}
           to="/dashboard/products"
         >
           <MdOutlineHome />
@@ -68,7 +70,7 @@ const Dashboard = () => {
       </li>
       <li>
         <NavLink
-          className={navStyle}
+          className={location.pathname === "/dashboard/manage-product" ? navActive  : navStyle}
           to="/dashboard/manage-product"
         >
           <MdOutlineSettings />
@@ -77,7 +79,7 @@ const Dashboard = () => {
       </li>
       <li>
         <NavLink
-          className={navStyle}
+          className={location.pathname === "/dashboard/checked-product" ? navActive  : navStyle}
           to="/dashboard/checked-product"
         >
            <IoBagCheckOutline />
@@ -86,7 +88,7 @@ const Dashboard = () => {
       </li>
       <li>
         <NavLink
-          className={navStyle}
+           className={location.pathname === "/dashboard/subscription-plan" ? navActive  : navStyle}
           to="/dashboard/subscription-plan"
         >
           <MdOutlineSubscriptions />
@@ -95,7 +97,16 @@ const Dashboard = () => {
       </li>
       <li>
         <NavLink
-          className={navStyle}
+           className={location.pathname === "/dashboard/shop-access" ? navActive  : navStyle}
+          to="/dashboard/shop-access"
+        >
+          <FaKey />
+          Shop Access
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className={location.pathname === "/dashboard/sell-summary" ? navActive  : navStyle}
           to="/dashboard/sell-summary"
         >
           <FaCalculator />
@@ -109,7 +120,7 @@ const Dashboard = () => {
       !isManager && <>
        <li>
         <NavLink
-          className={navStyle}
+           className={location.pathname === "/dashboard/all-shop" ? navActive  : navStyle}
           to="/dashboard/all-shop"
         >
           <IoStorefrontOutline />
@@ -118,7 +129,7 @@ const Dashboard = () => {
       </li>
        <li>
         <NavLink
-          className={navStyle}
+           className={location.pathname === "/dashboard/admin-sell-summary" ? navActive  : navStyle}
           to="/dashboard/admin-sell-summary"
         >
           <FaCalculator />
@@ -148,12 +159,12 @@ const Dashboard = () => {
     </>
   );
   return (
-    <div className="h-screen max-w-screen-2xl mx-auto flex text-center ">
+    <div className="h-full flex text-center ">
         <Helmet>
         <title>TrendLoom | Dashboard</title>
       </Helmet>
       <div className="hidden lg:block w-64 bg-zinc-200 px-10 py-5 space-y-3">
-        <span className="text-xl font-medium">TrendLoom</span>
+        <span className="text-xl font-medium flex justify-center items-center gap-2"><IoStorefrontOutline /> TrendLoom</span>
         <ul>{dashLink}</ul>
       </div>
 
@@ -188,6 +199,7 @@ const Dashboard = () => {
       </div>
       <div className="flex-1 min-h-screen">
         <Outlet></Outlet>
+        <Footer></Footer>
       </div>
     </div>
   );

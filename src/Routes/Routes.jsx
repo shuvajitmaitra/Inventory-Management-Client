@@ -19,6 +19,9 @@ import SellSummary from "../Pages/Dashboard/ShopManager/SellSummary";
 import Shops from "../Pages/Dashboard/SystemAdmin/Shops";
 import AdminRoute from "./AdminRoute";
 import AdminSellSummary from "../Pages/Dashboard/SystemAdmin/AdminSellSummary";
+import WatchDemo from "../Pages/WatchDemo/WatchDemo";
+import ForbiddenRoute from "./ForbiddenRoute";
+import ShopAccess from "../Pages/Dashboard/ShopManager/ShopAccess";
 
 const Routes = createBrowserRouter([
   {
@@ -31,8 +34,16 @@ const Routes = createBrowserRouter([
         element: <Home></Home>,
       },
       {
+        path: "/forbidden",
+        element: <ForbiddenRoute></ForbiddenRoute>,
+      },
+      {
+        path: "/watch-demo",
+        element: <WatchDemo/>,
+      },
+      {
         path: "/login",
-        element: <Login></Login>,
+        element: <Login/>,
       },
       {
         path: "/sign-up",
@@ -84,6 +95,10 @@ const Routes = createBrowserRouter([
       {
         path: "checked-product",
         element: <CheckedProduct />,
+      },
+      {
+        path: "shop-access",
+        element: <ShopAccess />,
       },
       {
         path: "sell-summary",

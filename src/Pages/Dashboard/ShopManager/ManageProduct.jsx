@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import useProducts from "../../../Hook/useProducts";
-import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import useManagerInfo from "../../../Hook/useManagerInfo";
@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet-async";
 const ManageProduct = () => {
   const [products, refetch, isLoading] = useProducts();
   const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const [managerInfo] = useManagerInfo();
   const productLimit = parseInt(managerInfo?.productLimit);
   const newProductLimit = { newProductLimit: productLimit + 1 };
@@ -22,7 +22,7 @@ const ManageProduct = () => {
       </div>
     );
   }
-  
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -34,9 +34,9 @@ const ManageProduct = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosPublic.delete(`/productDelete/${id}`).then((res) => {
+        axiosSecure.delete(`/productDelete/${id}`).then((res) => {
           if (res?.data?.deletedCount) {
-            axiosPublic
+            axiosSecure
               .patch(`/newProductLimit/${user.email}`, newProductLimit)
               .then((res) => {
                 if (res?.data?.modifiedCount) {
@@ -51,7 +51,7 @@ const ManageProduct = () => {
   };
   return (
     <div className=" bg-zinc-100  min-h-screen">
-        <Helmet>
+      <Helmet>
         <title>TrendLoom | Product Manage</title>
       </Helmet>
       {products.length ? (
@@ -63,7 +63,13 @@ const ManageProduct = () => {
             <h3 className="text-xl font-medium">
               Total Products: {products.length}
             </h3>
-            <Link to={productLimit === 0 ? "/dashboard/subscription-plan" :"/dashboard/add-product" }>
+            <Link
+              to={
+                productLimit === 0
+                  ? "/dashboard/subscription-plan"
+                  : "/dashboard/add-product"
+              }
+            >
               <button className="btn bg-[#7cb518] btn-sm text-white  rounded mb-3">
                 Add Products
               </button>
@@ -105,7 +111,7 @@ const ManageProduct = () => {
                       </td>
                       <td className="text-zinc-600">{product.saleCount}</td>
                       <td>
-                        <Link to={`/dashboard/product-update/${product._id}`}>
+                        <Link to={`${product.productQuantity <= 0 ? `/dashboard/product-update/${product._id}` : '/dashboard/subscription-plan'}`}>
                           <button className="text-zinc-600 font-medium py-1 px-2 rounded bg-[#b2ee4a] shadow-md shadow-green-400">
                             Update
                           </button>
@@ -128,7 +134,13 @@ const ManageProduct = () => {
         </div>
       ) : (
         <span className="flex h-screen justify-center items-center flex-col">
-          <Link to={productLimit === 0 ? "/dashboard/subscription-plan" :"/dashboard/add-product" }>
+          <Link
+            to={
+              productLimit === 0
+                ? "/dashboard/subscription-plan"
+                : "/dashboard/add-product"
+            }
+          >
             <button className="btn bg-[#7cb518]  rounded btn-lg mb-3">
               Add Products
             </button>

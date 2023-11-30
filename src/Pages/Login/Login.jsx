@@ -1,16 +1,20 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import loginBg from "../../assets/login-tree.jpg";
+import { Link, useNavigate } from "react-router-dom";
+import loginBg from "../../assets/Sign/login.png";
 import toast from "react-hot-toast";
 import useAuth from "../../Hook/useAuth";
 import SocialLogin from "../../Shared/SocialLogin";
 import useManager from "../../Hook/useManager";
 import { Helmet } from "react-helmet-async";
+import useAdmin from "../../Hook/useAdmin";
+import { useState } from "react";
+import RouteTitle from "../../Components/RouteTitle";
 
 const Login = () => {
+  const [logged, setLogged] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
   const { userSignIn } = useAuth();
-  const [manager] = useManager()
+  const [isManager] = useManager();
+  const [isAdmin] = useAdmin();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,19 +23,38 @@ const Login = () => {
     userSignIn(email, password)
       .then(() => {
         toast.success("Successfully user logged in!");
-
-        navigate(location?.state ? location?.state?.from : manager ? "/dashboard/products":"/");
+        setLogged(true);
       })
       .catch((error) => {
-        toast.error(error.message.firebase, "Email/Password invalid");
+        console.log(error);
+        toast.error("Email/Password invalid");
       });
   };
+
+  if (logged) {
+    if(isManager !== undefined || isAdmin !== undefined){
+      navigate(
+        !isManager && !isAdmin
+      ? "/create-shop"
+      : isManager
+      ? "/dashboard/products"
+      : isAdmin
+      ? "/dashboard/all-shop"
+      : "/"
+      )
+
+    }else{
+      navigate(
+        "/" 
+      );
+    }
+  }
   return (
     <div className="min-h-screen flex justify-center items-center flex-col space-y-10 bg-zinc-100 ">
-        <Helmet>
+      <Helmet>
         <title>TrendLoom | Login</title>
       </Helmet>
-      <h4 className="text-5xl font-bold text-[#373737]">Login Now!</h4>
+      <RouteTitle heading="SignIn Now!" />
       <div className="h-1/2 max-w-4xl md:w-3/4 flex flex-col md:flex-row shadow-2xl  shadow-zinc-400 rounded-lg bg-white">
         <div className="h-96 flex-1 hidden md:flex items-center">
           <img
@@ -68,7 +91,23 @@ const Login = () => {
             />
           </div>
           <div className="form-control mt-6">
-            <button type="submit" className="btn bg-[#7cb518]">Login</button>
+            <button
+              type="submit"
+              className="btn bg-[#7cb518]"
+            >
+              Login
+            </button>
+          </div>
+          <div className="font-medium">
+            <h3>
+              New here?
+              <Link
+                to={"/sign-up"}
+                className="text-primary"
+              >
+                Sign Up
+              </Link>
+            </h3>
           </div>
           <div className="divider"></div>
           <div>

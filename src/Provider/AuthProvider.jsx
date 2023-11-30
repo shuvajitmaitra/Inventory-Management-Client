@@ -40,20 +40,21 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       // console.log(currentUser);
 
-    //   if (!currentUser) {
-    //     localStorage.removeItem("access-token");
-    //     setLoading(false);
-    //   }
-    //   if (currentUser) {
-    //     const email = { email: currentUser.email };
-    //     axiosPublic.post("/jwt", email).then((res) => {
-    //       if (res.data.token) {
-    //         localStorage.setItem("access-token", res.data.token);
-    //         return setLoading(false);
-    //       }
-    //     });
-    //   }
-    setLoading(false)
+      if (!currentUser) {
+        localStorage.removeItem("access-token");
+        setLoading(false);
+      }
+     
+      if (currentUser) {
+        console.log(currentUser.email);
+        const email = { email: currentUser.email };
+        axiosPublic.post("/jwt", email).then((res) => {
+          if (res.data.token) {
+            localStorage.setItem("access-token", res.data.token);
+             setLoading(false);
+          }
+        });
+      }
     });
     return () => {
       return unsubscribe;

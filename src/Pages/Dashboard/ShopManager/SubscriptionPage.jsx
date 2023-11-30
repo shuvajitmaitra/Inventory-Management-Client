@@ -4,6 +4,7 @@ import { FcApproval } from "react-icons/fc";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import useManagerInfo from "../../../Hook/useManagerInfo";
+import RouteTitle from "../../../Components/RouteTitle";
 
 const SubscriptionPage = () => {
   const [manager, isLoading] = useManagerInfo();
@@ -23,9 +24,7 @@ const SubscriptionPage = () => {
       <Helmet>
         <title>TrendLoom | Subscription</title>
       </Helmet>
-      <h2 className="text-5xl font-medium text-center pt-5 p-3 mb-3 border-b-4 border-[#7cb518] w-fit  mx-auto ">
-      Subscription
-        </h2>
+      <RouteTitle heading="Subscriptions" />
       <div className="w-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6">
         <div className={cardStyle}>
           <div className=" flex items-center justify-center text-3xl font-bold gap-4 ">

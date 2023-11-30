@@ -1,14 +1,14 @@
-import useAxiosPublic from "../../Hook/useAxiosPublic";
+import useAxiosSecure from "../../Hook/useAxiosSecure";
 import useAuth from "../../Hook/useAuth";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
+import RouteTitle from "../../Components/RouteTitle";
 
 const CreateShop = () => {
-  const axiosPublic = useAxiosPublic()
-  const navigate = useNavigate()
-  const {user} = useAuth()
-  console.log(user);
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const inputStyle =
     "focus:border-b-2 focus:border-[#7cb518] focus:outline-none text-[#7cb518] border-b-2 border-zinc-300 pb-3 w-full font-medium";
 
@@ -21,21 +21,22 @@ const CreateShop = () => {
     const shopOwnerName = user.displayName;
     const shopOwnerEmail = user.email;
 
-      const shopData = {
+    const shopData = {
       shopName,
       shopLogo,
       shopInfo,
       shopLocation,
       shopOwnerName,
       shopOwnerEmail,
+    };
+
+    axiosSecure.post("/shopData", shopData).then((res) => {
+      if (res.data.insertedId === null) {
+        toast.error(res.data.message);
       }
-      
-      axiosPublic.post('/shopData', shopData)
-      .then(res=>{
-        if(res.data.insertedId=== null){
-          toast.error(res.data.message)
-        }
-        if(res.data.insertedId){
+
+      console.log(res.data);
+      if (res.data.insertedId) {
         const shopManager = {
           shopName,
           shopLogo,
@@ -43,25 +44,25 @@ const CreateShop = () => {
           shopLocation,
           shopId: res.data.insertedId,
           role: "manager",
-          
-        }
-        axiosPublic.patch(`/users/manager/${user.email}`, shopManager)
-        .then((res) => {
-          if(res?.data?.modifiedCount){
-            navigate("/dashboard/products")
-           toast.success('user created')
-          }
-        });
-        }
-      })
+        };
+        axiosSecure
+          .patch(`/users/manager/${user.email}`, shopManager)
+          .then((res) => {
+            if (res?.data?.modifiedCount) {
+              toast.success("user created");
+            }
+          });
+        navigate("/dashboard/products");
+      }
+    });
   };
 
   return (
     <div className="min-h-screen flex justify-center items-center flex-col space-y-10 bg-zinc-100 ">
-        <Helmet>
+      <Helmet>
         <title>TrendLoom | Create Shop</title>
       </Helmet>
-      <h4 className="text-5xl font-bold text-[#373737]">Create Your Shop!</h4>
+      <RouteTitle heading="Create Your Shop!" />
       <div className="h-1/2 max-w-4xl md:w-3/4 flex flex-col md:flex-row shadow-2xl  shadow-zinc-400 rounded-lg bg-white">
         <form
           onSubmit={handleSubmit}

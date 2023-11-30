@@ -1,13 +1,14 @@
 import toast from "react-hot-toast";
-import loginBg from "../../assets/login-tree.jpg";
+import loginBg from "../../assets/Sign/Sign up-amico.png";
 import useAuth from "../../Hook/useAuth";
 import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
 import auth from "../../Firebase/firebase.config";
 import SocialLogin from "../../Shared/SocialLogin";
 import useAxiosPublic from "../../Hook/useAxiosPublic";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import RouteTitle from "../../Components/RouteTitle";
 
 const Register = () => {
   const axiosPublic = useAxiosPublic();
@@ -61,7 +62,7 @@ const Register = () => {
       <Helmet>
         <title>TrendLoom | Sing Up</title>
       </Helmet>
-      <h4 className="text-5xl font-bold text-[#373737]">SignUp Now!</h4>
+      <RouteTitle heading="SignUp Now!" />
       <div className="min-h-1/2 max-w-4xl md:w-3/4 flex flex-col md:flex-row shadow-2xl  shadow-zinc-400 rounded-lg bg-white">
         <div className=" flex-1 hidden md:flex items-center">
           <img
@@ -148,6 +149,17 @@ const Register = () => {
             >
               Sign Up
             </button>
+          </div>
+          <div className="font-medium">
+            <h3>
+              Already have an account?{" "}
+              <Link
+                to={"/login"}
+                className="text-primary"
+              >
+                Sign In
+              </Link>
+            </h3>
           </div>
           <div className="divider"></div>
           <div>

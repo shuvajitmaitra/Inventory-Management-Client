@@ -1,5 +1,5 @@
 import { PropTypes } from "prop-types";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import useAuth from "../Hook/useAuth";
 import useAdmin from "../Hook/useAdmin";
 
@@ -7,7 +7,6 @@ import useAdmin from "../Hook/useAdmin";
 const AdminRoute = ({children}) => {
     const { user, loading } = useAuth();
     const [isAdmin, isAdminLoading] = useAdmin()
-    const location = useLocation()
   
     
     if (loading || isAdminLoading) {
@@ -24,9 +23,7 @@ const AdminRoute = ({children}) => {
         <>
 
         <Navigate
-          to="/"
-          state={{from:location.pathname}}
-          replace
+          to="/forbidden"
         >
         </Navigate>
         </>

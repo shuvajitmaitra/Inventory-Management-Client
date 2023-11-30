@@ -2,84 +2,86 @@ import { Link, useNavigate } from "react-router-dom";
 import useProducts from "../../../Hook/useProducts";
 import { FaSearch } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
-import { IoBagCheckOutline } from "react-icons/io5";
-import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
-
+import RouteTitle from "../../../Components/RouteTitle";
+import { MdShoppingCartCheckout } from "react-icons/md";
 
 const AllProduct = () => {
-  const [products] = useProducts();
-  const [allProducts, setAllProducts] = useState(products)
-  const axiosPublic = useAxiosPublic()
-  const navigate = useNavigate()
+  const [products, refetch] = useProducts();
+  const [allProducts, setAllProducts] = useState(products);
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   useEffect(() => {
-  setAllProducts(products)
-}, [products])
+    setAllProducts(products);
+  }, [products]);
 
-
-
-  const handleCheckOut = (product)=>{
-    if(product.productQuantity <=0){
-      navigate('/dashboard/manage-product')
-      return toast("Insufficient Product Quantity",{icon: "🥲"})
+  const handleCheckOut = (product) => {
+    refetch();
+    if (product.productQuantity <= 0) {
+      navigate("/dashboard/manage-product");
+      return toast("Insufficient Product Quantity", { icon: "🥲" });
     }
     const checkedProducts = {
-    
-    productId: product._id,
-    shopName:product.shopName,
-    shopId:product.shopId, 
-    email:product.email,
-    productAddedDate:product.productAddedDate,
-    productName:product.productName,
-    productImage:product.productImage,
-    productQuantity:product.productQuantity,
-    productLocation:product.productLocation,
-    profitMargin:product.profitMargin,
-    makingCost:product.makingCost,
-    productPrice:product.productPrice,
-    productDiscount:product.productDiscount,
-    productDescription:product.productDescription,
-    saleCount:product.saleCount,
-    payStatus: "unpaid"
-    }
-    axiosPublic.post("/product-check-out",checkedProducts )
-    .then(res=>{
-      if(res.data.insertedId){
-        toast.success("Checked Out")
+      productId: product._id,
+      shopName: product.shopName,
+      shopId: product.shopId,
+      email: product.email,
+      productAddedDate: product.productAddedDate,
+      productName: product.productName,
+      productImage: product.productImage,
+      productQuantity: product.productQuantity,
+      productLocation: product.productLocation,
+      profitMargin: product.profitMargin,
+      makingCost: product.makingCost,
+      productPrice: product.productPrice,
+      productDiscount: product.productDiscount,
+      productDescription: product.productDescription,
+      saleCount: product.saleCount,
+      payStatus: "unpaid",
+    };
+    axiosSecure.post("/product-check-out", checkedProducts).then((res) => {
+      if (res.data.insertedId) {
+        toast.success("Checked Out");
         // navigate("/dashboard/checked-product")
       }
-    })
-  }
+    });
+  };
 
-  const handleSearch = (e)=>{
-    e.preventDefault()
-    const id = e.target.search.value
-    const filter = products?.filter(item=>item._id === id)
-    setAllProducts(filter)
- 
-
-  }
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const id = e.target.search.value;
+    const filter = products?.filter((item) => item._id === id);
+    setAllProducts(filter);
+  };
 
   return (
     <div className="min-h-screen bg-zinc-100 lg:px-10">
-        <Helmet>
+      <Helmet>
         <title>TrendLoom | Sales Collection</title>
       </Helmet>
       {products.length ? (
         <div className="space-y-7 py-10">
-            <h3 className="text-5xl text-center font-medium">All Product are here</h3>
+         <RouteTitle heading="All Product Collection" />
           <div>
-           <form onSubmit={handleSearch}>
-           <span className="relative w-fit">
-           <input type="text" name="search" className="w-1/2 mx-auto py-3 rounded-full " />
-            <button ><FaSearch className="absolute top-1 right-4" /></button>
-           </span>
-           </form>
+            <form onSubmit={handleSearch}>
+              <span className="relative w-fit">
+                <input
+                  type="text"
+                  name="search"
+                  placeholder="Search product by Product ID"
+                  className="w-1/2 mx-auto py-3 rounded-full pl-3 "
+                />
+                <button>
+                  <FaSearch className="absolute top-1 right-4" />
+                </button>
+              </span>
+            </form>
           </div>
-          <div className=" p-10 m-10 lg:m-0 rounded-lg bg-[#7bb51862]">
-            <div className="overflow-x-auto rounded-lg ">
+          <div className=" m-10 lg:m-0 rounded-lg bg-[#7bb51862]">
+            <div className="overflow-x-auto rounded-lg p-5">
               <table className="table">
                 {/* head */}
                 <thead className="bg-[#b1f044]">
@@ -110,9 +112,7 @@ const AllProduct = () => {
                         </div>
                       </td>
                       <td className="font-medium">{product.productName}</td>
-                      <td className="text-zinc-600">
-                        {product._id}
-                      </td>
+                      <td className="text-zinc-600">{product._id}</td>
                       <td className="text-zinc-600">
                         {product.productQuantity}
                       </td>
@@ -121,15 +121,19 @@ const AllProduct = () => {
                       </td>
                       <td className="text-zinc-600">${product.productPrice}</td>
                       <th>
-                      <button onClick={()=>handleCheckOut(product)} className="text-zinc-600 font-medium p-3 text-2xl rounded bg-[#b2ee4a] shadow-md shadow-green-400">
-                            <IoBagCheckOutline />
-                      </button>
+                        <button
+                          onClick={() => handleCheckOut(product)}
+                          className="text-zinc-600 font-medium p-3 text-2xl rounded bg-[#b2ee4a] shadow-md shadow-green-400"
+                        >
+                          <MdShoppingCartCheckout />
+
+                        </button>
                       </th>
                     </tr>
                   ))}
                 </tbody>
               </table>
-        </div>
+            </div>
           </div>
         </div>
       ) : (

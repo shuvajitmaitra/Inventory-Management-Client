@@ -1,6 +1,7 @@
 import { Outlet, useLocation,  } from "react-router-dom";
 import Navbar from "../Shared/Navbar";
 import { Helmet } from "react-helmet-async";
+import Footer from "../Shared/Footer";
  
 const MainLayout = () => {
     const location = useLocation()
@@ -12,8 +13,10 @@ const MainLayout = () => {
         <title>TrendLoom | Main</title>
       </Helmet>
        { noHeaderFooterLogin|| noHeaderFooterSignUp || <Navbar></Navbar>}
+        <div >
         <Outlet></Outlet>
-        {/* {noHeaderFooter ||<Footer></Footer>} */}
+        </div>
+        {noHeaderFooterLogin|| noHeaderFooterSignUp ||<Footer></Footer>}
        </div>
     );
 };

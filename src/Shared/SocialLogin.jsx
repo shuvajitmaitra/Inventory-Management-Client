@@ -9,7 +9,7 @@ const SocialLogin = () => {
   const axiosPublic = useAxiosPublic();
   const { googleSignIn } = useAuth();
   const navigate = useNavigate();
-  const [manager] = useManager()
+  const [manager] = useManager();
 
   const handleGoogleSignIn = () => {
     googleSignIn()
@@ -23,7 +23,7 @@ const SocialLogin = () => {
             toast.success("User create successfully!");
           }
         });
-        navigate(!manager ? "/dashboard/products":"/");
+        navigate(!manager ? "/dashboard/products" : "/");
       })
       .catch((error) => {
         console.log(error.message);

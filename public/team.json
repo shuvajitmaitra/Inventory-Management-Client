@@ -1,0 +1,95 @@
+[
+    
+
+
+
+    {
+        "id": 1,
+        "name": "Adeline Lopez",
+        "image": "  https://i.ibb.co/j46s5Lm/adeline.jpg",
+        "designation" : "CEO",
+        "introduction": "Adeline is an exemplary leader with a knack for inspiring and guiding teams towards surpassing organizational objectives. Her strategic prowess is evident in her ability to devise and implement comprehensive business strategies that drive sustainable growth. Adeline adeptly manages complex projects and cultivates transparent communication channels, building strong partnerships both internally and externally. She has a proven track record in change management, ensuring smooth transitions and heightened adaptability. Adeline's financial acumen, ethical leadership, and industry expertise make her an invaluable asset, fostering a culture of excellence, innovation, and customer-centricity.",
+        "address": "34 Anywhere Road Coventry CV6",
+        "gmail": "adeline@info.com",
+        "number": "+1 555 123 456"
+
+    },
+    {
+        "id": 2,
+        "name": "Jimmy Parks",
+        "image": "https://i.ibb.co/7Rg0FpV/jimmy.jpg",
+        "designation" : "CTO",
+        "introduction": "Jimmy, our visionary founder, embodies the driving force behind our organization's inception and ongoing success. With an unwavering passion for innovation and a deep understanding of our industry, he has tirelessly led us towards new horizons. Jimmy's entrepreneurial spirit, strategic thinking, and dedication to our mission have paved the way for our growth and continued impact. Under his leadership, we have not only embraced change but thrived in an ever-evolving landscape. His commitment to excellence and tireless pursuit of our goals make Jimmy a true inspiration to us all.",
+        "address": "34 police line Road Coventry CV6",
+        "gmail": "jimmy@info.com",
+        "number": "+1 555 123 234"
+
+    },
+    {
+        "id": 3,
+        "name": "Marcus Shaw",
+        "image": "https://i.ibb.co/Ny4Ssmm/marcus.jpg",
+        "designation" : "COO",
+        "introduction": "Meet Marcus, our diligent and dedicated coordinator who plays a pivotal role in ensuring seamless operations and collaboration within our team. With a keen eye for detail and a natural talent for organization, Marcus excels in managing tasks, timelines, and resources with precision. His proactive approach to problem-solving and effective communication skills make him an invaluable asset in navigating complex projects. Marcus's commitment to teamwork and his ability to streamline processes contribute significantly to our collective success, making him an essential part of our team.",
+        "address": "34 hospital Road Coventry CV6",
+        "gmail": "marcus@info.com",
+        "number": "+1 555 123 998"
+
+    },
+    {
+        "id": 4,
+        "name": "Nelson Daniel",
+        "image": "https://i.ibb.co/Brmngx4/nelson-Copy.jpg",
+        "designation" : "Creative Director",
+        "introduction": "Introducing Nelson, our exceptionally talented Creative Director whose innovative vision and artistic flair breathe life into our projects. With a profound passion for creativity and a wealth of experience in the industry, Nelson brings a unique perspective to every endeavor. His ability to blend artistry with strategy results in captivating and effective designs that leave a lasting impact. Nelson's leadership inspires our team to push creative boundaries and consistently deliver outstanding work. His dedication to elevating our brand and storytelling through visual excellence makes him an instrumental force behind our creative endeavors.",
+        "address": "34 station line Road Coventry CV6",
+        "gmail": "nelson@info.com",
+        "number": "+1 555 123 778"
+
+    },
+
+    {
+        "id": 1,
+        "name": "Adeline Lopez",
+        "image": "  https://i.ibb.co/j46s5Lm/adeline.jpg",
+        "designation" : "CEO",
+        "introduction": "Adeline is an exemplary leader with a knack for inspiring and guiding teams towards surpassing organizational objectives. Her strategic prowess is evident in her ability to devise and implement comprehensive business strategies that drive sustainable growth. Adeline adeptly manages complex projects and cultivates transparent communication channels, building strong partnerships both internally and externally. She has a proven track record in change management, ensuring smooth transitions and heightened adaptability. Adeline's financial acumen, ethical leadership, and industry expertise make her an invaluable asset, fostering a culture of excellence, innovation, and customer-centricity.",
+        "address": "34 Anywhere Road Coventry CV6",
+        "gmail": "adeline@info.com",
+        "number": "+1 555 123 456"
+
+    },
+    {
+        "id": 2,
+        "name": "Jimmy Parks",
+        "image": "https://i.ibb.co/7Rg0FpV/jimmy.jpg",
+        "designation" : "CTO",
+        "introduction": "Jimmy, our visionary founder, embodies the driving force behind our organization's inception and ongoing success. With an unwavering passion for innovation and a deep understanding of our industry, he has tirelessly led us towards new horizons. Jimmy's entrepreneurial spirit, strategic thinking, and dedication to our mission have paved the way for our growth and continued impact. Under his leadership, we have not only embraced change but thrived in an ever-evolving landscape. His commitment to excellence and tireless pursuit of our goals make Jimmy a true inspiration to us all.",
+        "address": "34 police line Road Coventry CV6",
+        "gmail": "jimmy@info.com",
+        "number": "+1 555 123 234"
+
+    },
+    {
+        "id": 3,
+        "name": "Marcus Shaw",
+        "image": "https://i.ibb.co/Ny4Ssmm/marcus.jpg",
+        "designation" : "COO",
+        "introduction": "Meet Marcus, our diligent and dedicated coordinator who plays a pivotal role in ensuring seamless operations and collaboration within our team. With a keen eye for detail and a natural talent for organization, Marcus excels in managing tasks, timelines, and resources with precision. His proactive approach to problem-solving and effective communication skills make him an invaluable asset in navigating complex projects. Marcus's commitment to teamwork and his ability to streamline processes contribute significantly to our collective success, making him an essential part of our team.",
+        "address": "34 hospital Road Coventry CV6",
+        "gmail": "marcus@info.com",
+        "number": "+1 555 123 998"
+
+    },
+    {
+        "id": 4,
+        "name": "Nelson Daniel",
+        "image": "https://i.ibb.co/Brmngx4/nelson-Copy.jpg",
+        "designation" : "Creative Director",
+        "introduction": "Introducing Nelson, our exceptionally talented Creative Director whose innovative vision and artistic flair breathe life into our projects. With a profound passion for creativity and a wealth of experience in the industry, Nelson brings a unique perspective to every endeavor. His ability to blend artistry with strategy results in captivating and effective designs that leave a lasting impact. Nelson's leadership inspires our team to push creative boundaries and consistently deliver outstanding work. His dedication to elevating our brand and storytelling through visual excellence makes him an instrumental force behind our creative endeavors.",
+        "address": "34 station line Road Coventry CV6",
+        "gmail": "nelson@info.com",
+        "number": "+1 555 123 778"
+
+    }
+]

@@ -1,20 +1,21 @@
-import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import useCheckout from "../../../Hook/useCheckout";
 import toast from "react-hot-toast";
 import { jsPDF } from "jspdf";
 import { useNavigate } from "react-router-dom";
-
+import RouteTitle from "../../../Components/RouteTitle";
+import { Helmet } from "react-helmet-async";
 
 const CheckedProduct = () => {
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const [checkedProducts, refetch] = useCheckout();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const soldTime = new Date();
 
-  const jsPdfGenerator = (product)=>{
-    const doc = new jsPDF("p", 'pt')
-    doc.setFontSize(14)
+  const jsPdfGenerator = (product) => {
+    const doc = new jsPDF("p", "pt");
+    doc.setFontSize(14);
     doc.text(`Money Receipt:`, 20, 20);
     doc.text(`-------------------------------------------`, 20, 30);
     doc.text(`Shop Name: ${product.shopName}`, 20, 40);
@@ -28,45 +29,46 @@ const CheckedProduct = () => {
     doc.text(`Product Discount: ${product.productDiscount}%`, 20, 200);
     doc.text(`-------------------------------------------`, 20, 220);
     doc.text(`Product Price: ${product.productPrice}`, 20, 240);
-    // doc.save(`${product.productName}.pdf`);
-  }
+    doc.save(`${product.productName}.pdf`);
+  };
 
   const handleSoldProduct = (product) => {
- const soldProduct = {
-productId:product.productId,
-shopName:product.shopName,
-shopId:product.shopId,
-email:product.email,
-productAddedDate:product.productAddedDate,
-productName:product.productName,
-productImage:product.productImage,
-productQuantity:product.productQuantity,
-productLocation:product.productLocation,
-profitMargin:product.profitMargin,
-makingCost:product.makingCost,
-productPrice:product.productPrice,
-productDiscount:product.productDiscount,
-productDescription:product.productDescription,
-saleCount:product.saleCount,
-    soldTime,  };
-    axiosPublic.post("/sold-product", soldProduct).then((res) => {
+    const soldProduct = {
+      productId: product.productId,
+      shopName: product.shopName,
+      shopId: product.shopId,
+      email: product.email,
+      productAddedDate: product.productAddedDate,
+      productName: product.productName,
+      productImage: product.productImage,
+      productQuantity: product.productQuantity,
+      productLocation: product.productLocation,
+      profitMargin: product.profitMargin,
+      makingCost: product.makingCost,
+      productPrice: product.productPrice,
+      productDiscount: product.productDiscount,
+      productDescription: product.productDescription,
+      saleCount: product.saleCount,
+      soldTime,
+    };
+    axiosSecure.post("/sold-product", soldProduct).then((res) => {
       if (res.data.insertedId) {
-        axiosPublic.get(`/singleProduct/${product.productId}`).then((res) => {
+        axiosSecure.get(`/singleProduct/${product.productId}`).then((res) => {
           const saleCount = res.data.saleCount + 1;
           const productQuantity = parseInt(res.data.productQuantity) - 1;
           const newQuantity = { saleCount, productQuantity };
 
-          axiosPublic
+          axiosSecure
             .patch(`/product/${product.productId}`, newQuantity)
             .then((res) => {
               if (res.data.modifiedCount) {
-                axiosPublic
+                axiosSecure
                   .delete(`/sold-product-delete/${product._id}`)
                   .then((res) => {
                     if (res.data.deletedCount) {
                       refetch();
-                      jsPdfGenerator(product)
-                      navigate('/dashboard/products')
+                      jsPdfGenerator(product);
+                      navigate("/dashboard/products");
                       toast.success("product sold");
                     }
                   });
@@ -78,9 +80,10 @@ saleCount:product.saleCount,
   };
   return (
     <div className="">
-      <h2 className="text-5xl font-medium text-center pt-10 p-3 mb-10 border-b-4 border-[#7cb518] w-fit  mx-auto ">
-        Check Out Page
-      </h2>
+      <Helmet>
+        <title>TrendLoom | Check Out Page</title>
+      </Helmet>
+      <RouteTitle heading="Check Out Page" />
 
       <div className=" p-10 m-10 rounded-lg bg-[#7bb51865] shadow-xl">
         <div className=" rounded-lg">
@@ -91,7 +94,7 @@ saleCount:product.saleCount,
                 <th> #</th>
                 <th>Product Image</th>
                 <th>Product Name</th>
-                <th>Product Location</th>
+                <th>Product Price</th>
                 <th> Product Description</th>
                 <th>Get Paid</th>
               </tr>
@@ -112,8 +115,13 @@ saleCount:product.saleCount,
                     </div>
                   </td>
                   <td className="font-medium">{product.productName}</td>
-                  <td className="text-zinc-600">{product.productLocation}</td>
-                  <td className="text-zinc-600">{product.productDescription}</td>
+                  <td className="text-zinc-600">
+                    {" "}
+                    $ {parseInt(product.productPrice)}
+                  </td>
+                  <td className="text-zinc-600">
+                    {product.productDescription}
+                  </td>
                   <td>
                     <button
                       onClick={() => handleSoldProduct(product)}

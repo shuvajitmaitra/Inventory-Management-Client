@@ -1,6 +1,6 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
-import useAxiosPublic from "../../../Hook/useAxiosPublic";
+import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../../../Hook/useAuth";
@@ -9,8 +9,8 @@ const CheckoutForm = () => {
   const [transactionId, setTransactionId] = useState("");
   const [error, setError] = useState("");
   const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
-  const navigate = useNavigate()
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -21,13 +21,13 @@ const CheckoutForm = () => {
   const totalPrice = price;
 
   useEffect(() => {
-    axiosPublic
+    axiosSecure
       .post("/create-payment-intent", { price: totalPrice })
       .then((res) => {
         console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret);
       });
-  }, [axiosPublic, totalPrice]);
+  }, [axiosSecure, totalPrice]);
 
   const handleSubmit = async (event) => {
     // Block native form submission.
@@ -61,7 +61,7 @@ const CheckoutForm = () => {
           card: card,
           billing_details: {
             email: user.email || "anonymous",
-            name: user.displayName || "anonymous", 
+            name: user.displayName || "anonymous",
           },
         },
       });
@@ -72,6 +72,7 @@ const CheckoutForm = () => {
       console.log({ paymentIntent });
       if (paymentIntent.status === "succeeded") {
         setTransactionId(paymentIntent.id);
+        
 
         const payment = {
           email: user.email,
@@ -88,27 +89,27 @@ const CheckoutForm = () => {
             (totalPrice === 10 && 200) ||
             (totalPrice === 20 && 450) ||
             (totalPrice === 50 && 1500),
-            subscriptionType: 
+          subscriptionType:
             (totalPrice === 10 && "Basic") ||
             (totalPrice === 20 && "Advance") ||
             (totalPrice === 50 && "Premium"),
         };
 
-        const res = await axiosPublic.put("/payment", payment);
+        const res = await axiosSecure.put("/payment", payment);
         if (res.data.insertedId) {
-          axiosPublic
+          axiosSecure
             .patch(`/newProductLimit/${user.email}`, newProductLimit)
             .then((res) => {
               if (res?.data?.modifiedCount) {
-              axiosPublic.patch(`/system-admin-income?price=${totalPrice}`)
-              .then(response=>{
-
-                console.log(response.data);
-                if(response.data.modifiedCount){
-                  navigate("/dashboard/products")
-                  toast.success("Payment Success!");
-                }
-              })
+                axiosSecure
+                  .patch(`/system-admin-income?price=${totalPrice}`)
+                  .then((response) => {
+                    console.log(response.data);
+                    if (response.data.modifiedCount) {
+                      navigate("/dashboard/products");
+                      toast.success("Payment Success!");
+                    }
+                  });
               }
             });
         }
