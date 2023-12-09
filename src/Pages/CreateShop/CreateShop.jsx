@@ -20,6 +20,7 @@ const CreateShop = () => {
     const shopLocation = e.target.shopLocation.value;
     const shopOwnerName = user.displayName;
     const shopOwnerEmail = user.email;
+    const shopAdmin = e.target.shopAdmin.value
 
     const shopData = {
       shopName,
@@ -28,6 +29,8 @@ const CreateShop = () => {
       shopLocation,
       shopOwnerName,
       shopOwnerEmail,
+      shopAdmin: shopAdmin || ""
+
     };
 
     axiosSecure.post("/shopData", shopData).then((res) => {
@@ -118,6 +121,15 @@ const CreateShop = () => {
               placeholder="Shop-Owner Email"
               className={inputStyle}
               required
+            />
+          </div>
+          <div>
+          <input
+              type="text"
+              name="shopAdmin"
+    
+              placeholder="Be a shop Manager"
+              className={inputStyle}
             />
           </div>
           <div className="form-control mt-6">
