@@ -14,8 +14,9 @@
 - JWT token security 
 - Firebase authentication 
 - Image hosting feature
+- Email sending 
 
-## 🧑‍💻 Technology Stack
+## 🧑‍💻 Technology Used
 <p align="center">
   <a href="">
     <img src="https://skillicons.dev/icons?i=react,tailwind,firebase,express,mongodb" />
@@ -25,4 +26,26 @@
 ## Other Technologies
 ### DaisyUi | Strip | Mapbox-gl | JWT | Axios
 
+# Run the project in your system
 
+## Client Side .env.local file example
+-  VITE_apiKey= "Your Firebase Api Key"
+-  VITE_authDomain="Your Firebase domain"
+-  VITE_projectId="Your project Id"
+-  VITE_storageBucket= "Storage Bucket"
+-  VITE_messagingSenderId="Messaging Sender id"
+-  VITE_appId="App Id"
+-  VITE_IMAGE_KEY="Your imagebb Api key"
+- VITE_PAYMENT_KEY_PK="stripe public key for payment system"
+-  VITE_EMAILJS_PUBLIC_KEY="Email js public key"
+-  VITE_EMAILJS_TEMPLATE_ID="EmailJs Template Id"
+-  VITE_EMAILJS_SERVICE_ID="EmailJs Service Id" 
+
+## Server side .env file example
+
+DB_USER="Database Use Id"
+DB_PASS="Database password"
+
+ACCESS_TOKEN_SECRET="JWT Secrete Token"
+
+PAYMENT_GATEWAY_SK="Strip Payment Secrete Key"
