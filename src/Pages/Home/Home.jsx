@@ -4,6 +4,7 @@ import OurLocation from "./OutLocation";
 import Feedback from "./Feedback";
 import OurTeam from "./OurTeam";
 import About from "./About";
+import CustomerReviews from "./CustomerReviews";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
 
       <OurTeam/>
       <About/>
+      <CustomerReviews/>
       <div className="max-w-screen-xl mx-auto lg:flex justify-between items-center gap-6 mb-10 overflow-clip">
 
       <OurLocation className='flex-1 ' />
