@@ -2,8 +2,8 @@ import axios from "axios";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 const axiosSecure = axios.create({
-  // baseURL: "https://inventory-management-server-silk.vercel.app",
-  baseURL: "http://localhost:5000",
+  baseURL: "https://inventory-management-server-silk.vercel.app",
+  // baseURL: "http://localhost:5000",
 });
 const useAxiosSecure = () => {
   const { logOut } = useAuth();
