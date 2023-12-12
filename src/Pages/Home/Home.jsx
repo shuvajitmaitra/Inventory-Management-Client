@@ -5,6 +5,7 @@ import Feedback from "./Feedback";
 import OurTeam from "./OurTeam";
 import About from "./About";
 import CustomerReviews from "./CustomerReviews";
+import HomePageProduct from "./HomePageProduct";
 
 const Home = () => {
   return (
@@ -13,7 +14,7 @@ const Home = () => {
         <title>TrendLoom | Home</title>
       </Helmet>
       <Banner></Banner>
-
+<HomePageProduct></HomePageProduct>
       <OurTeam/>
       <About/>
       <CustomerReviews/>
