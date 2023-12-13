@@ -6,15 +6,19 @@ import OurTeam from "./OurTeam";
 import About from "./About";
 import CustomerReviews from "./CustomerReviews";
 import HomePageProduct from "./HomePageProduct";
+import useManager from "../../Hook/useManager";
 
 const Home = () => {
+const [isManager] = useManager()
   return (
     <div className="overflow-clip">
       <Helmet>
         <title>TrendLoom | Home</title>
       </Helmet>
       <Banner></Banner>
-<HomePageProduct></HomePageProduct>
+{
+  isManager ? <HomePageProduct></HomePageProduct> : ""
+}
       <OurTeam/>
       <About/>
       <CustomerReviews/>

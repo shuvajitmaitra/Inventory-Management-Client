@@ -10,7 +10,7 @@ import RouteTitle from "../../Components/RouteTitle";
 import useManager from "../../Hook/useManager";
 
 const AllProduct = () => {
-  const [products, refetch] = useProducts();
+  const [products,refetch] = useProducts();
   const [isManager] = useManager()
   const [allProducts, setAllProducts] = useState(products);
   const axiosSecure = useAxiosSecure();
@@ -18,7 +18,7 @@ const AllProduct = () => {
 
   useEffect(() => {
     setAllProducts(products);
-  }, [products]);
+  }, [products,isManager]);
 
   const handleCheckOut = (product) => {
     refetch();
@@ -83,7 +83,7 @@ const AllProduct = () => {
             </form>
           </div>
           <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-10 lg:m-0 gap-5 ">
-          {allProducts.map((product) => (
+          {allProducts?.map((product) => (
                     <div key={product._id} className="rounded-lg bg-[#7bb51862] p-10 space-y-3">
                      <div className=" flex justify-center items-center b">
                             <img

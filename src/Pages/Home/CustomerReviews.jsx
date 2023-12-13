@@ -3,42 +3,21 @@ import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { SwiperNavButtons } from "./SwiperNavButtons";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+// import { useQuery } from "@tanstack/react-query";
+// import axios from "axios";
 import StarRating from "../../Components/StarRating";
+import { useEffect, useState } from "react";
 
 const CustomerReviews = () => {
-  const {
-    data: reviews,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["reviews"],
-    queryFn: async () =>
-      await axios
-        .get("https://assignment-11-novel-nexus-server.vercel.app/reviews")
-        .then((res) => {
-          return res.data;
-        }),
-  });
-
-  if (isLoading) {
-    return (
-      <span className="h-screen flex justify-center items-center">
-        <progress className="progress w-56"></progress>
-      </span>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="h-1/2 flex justify-center items-center">
-        <h3 className="text-3xl md:text-6xl py-6 font-bold text-primary text-center">
-          There is an error 😒
-        </h3>
-      </div>
-    );
-  }
+ const [reviews, setReviews] = useState([]);
+ useEffect(() => {
+  fetch("/reviews.json")
+    .then((res) => res.json())
+    .then((data) => setReviews(data));
+    
+ 
+}, []);
+ 
   return (
     <div className=" bg-[#7bb51862] py-10 rounded-lg">
       <Swiper
