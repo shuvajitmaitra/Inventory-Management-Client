@@ -139,7 +139,7 @@ const Navbar = () => {
               }
               to={"/sign-up"}
             >
-              SingUp
+              Join Us
             </NavLink>
           </li>
         </>
